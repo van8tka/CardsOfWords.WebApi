@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  cardsofwords.webapi.words:
+    image: ${DOCKER_REGISTRY-}cardsofwordswebapiwords
+    build:
+      context: .
+      dockerfile: CardsOfWords.WebApi.Words/Dockerfile
+    depends_on:
+      - db
+
+  db:
+    build: ../dt/db
+    restart: always
+    container_name: my_postgres
+    environment:
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - ../dt/database:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  adminer:
+    build: ../dt/adminer
+    restart: always
+    container_name: my_adminer
+    ports:
+      - 6081:8080
