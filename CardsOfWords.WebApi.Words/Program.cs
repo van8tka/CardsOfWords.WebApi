@@ -12,7 +12,7 @@ namespace CardsOfWords.WebApi.Words
             var builder = WebApplication.CreateBuilder(args);
             var services = builder.Services;
             services.AddDbContext<DataContext>();
-
+            services.AddLogging(x => x.AddConsole());
             services.AddCors();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
